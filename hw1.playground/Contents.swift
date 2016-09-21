@@ -22,33 +22,40 @@ class Words {
 //: ### variables the same type? If not, why?
 
 
-//: [EXPLAIN YOUR ANSWER HERE]
+//: The values passed in to the **init** function are an optional String type while those 
+//: set to the instance variables are implicitly unwrapped optional String types. Although 
+//: they are of the same type, the instance variables are guaranteeing that the variable does 
+//: in fact carry a string type while the optionals passed into the **init** function may have 
+//: nil values.
 
 
 //: ## Q2: Variable Types and Function Types
-    func arePalindromes(_ words: [String]) -> Bool {
+    class func arePalindromes(_ words: [String]) -> Bool {
         let reversedWords = words.map() {String($0.characters.reversed())}
         let numElements = words.count
-        
         for i in 0 ..< numElements {
             if words[i] != reversedWords[i] {
                 return false
             }
         }
+        return true
     }
 //: ### Why does the compiler dislike the **for loop**? Fix it.
 //: ### What else is wrong with this function? You may have to refer to (but **not**
 //: ### change) the code at the very bottom. Debug the function.
 
 
-//: [EXPLAIN YOUR ANSWER HERE]
+//: The **for loop** returns false if there ever is a word which is not a palindrome. However
+//: if all words are palindromes, the loop will finish and there will be no return value. We
+//: must return true after the for loop. Additionally this function acts as an instance method
+//: of the type Words. we must therefore declare it as a class method.
 
 
 //: ## Q3: More Functions and Object Initialization
-    class func isAnagram() -> Bool {
-        var countLetters : [Character : Int] //Line X
-        var lenA = self.wordA.characters.count
-        var lenB = self.wordB.characters.count
+    func isAnagram() -> Bool {
+        var countLetters : [Character : Int]  = [Character : Int]()//Line X
+        let lenA = self.wordA.characters.count
+        let lenB = self.wordB.characters.count
         
         if lenA != lenB {
             return false
@@ -81,7 +88,7 @@ class Words {
             }
         }
         
-        return nil
+        return true
     }
 //: ### What is the problem with declaring **countLetters** as we do in **Line X**,
 //: ### and then using it in **Line Y**? Fix it (by only changing **Line X**).
@@ -89,7 +96,12 @@ class Words {
 //: ### change) the code at the very bottom. Debug the function.
 
 
-//: [EXPLAIN YOUR ANSWER HERE]
+//: The declaration of **countLetters** is not initialized and therefore causes an 
+//: error when it is used in **Line Y**. To fix this, Line X must be changed to initialize
+//: the dictionary. Additionally, the function previously acted as a class method which
+//: caused an error when trying to call the function on a Word object. We must therefore 
+//: change it to an instance method. Lastly we should change the final return value to true
+//: instead of nil to be in accordance with our return type Bool.
     
     
 }
